@@ -14,6 +14,39 @@
 
 int main(void) {
 	setbuf(stdout, NULL);
-//hola
+
+	float A;
+	float B;
+	char operacion;
+	float resultado;
+
+	printf("Ingrese un primer operando: ");
+	scanf("%f", &A);
+
+	printf("Ingrese un segundo operando: ");
+	scanf("%f", &B);
+
+	printf("Ingrese operacion (+,-,/,*,!): ");
+	fflush(stdin);
+	scanf("%c", &operacion);
+
+	switch(operacion){
+	case '+':
+		resultado=biblio_sumar(A,B);
+		break;
+//	case '-':
+//		break;
+//	case '*':
+//		break;
+//	case '/':
+//		break;
+//	case '!':
+//		break;
+	}
+
+	if(resultado==0){
+	printf("Suma: %.2f", resultado);
+	}
+
 	return EXIT_SUCCESS;
 }
