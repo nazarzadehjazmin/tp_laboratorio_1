@@ -1,8 +1,5 @@
-/*
- * DUDAS:
- * DEBO INCLUIR EN LA BIBLIO GET CHAR, GET FLOAT? O SOLO UN GET Q QUIERA TIPO GET INT?
- * DOCUMENTAR TODAS LAS FUNCIONES SIGNIF USAR DOXYGEN?
-
+/*  JAZMÍN NAZARZADEH, 1°H
+	TP1
 Hacer una calculadora. Para ello el programa iniciará y contará con un menú de opciones:
 1. Ingresar 1er operando (A=x)
 2. Ingresar 2do operando (B=y)
@@ -31,7 +28,10 @@ que contenga las funciones para realizar las cinco operaciones.
 • Deberán contemplarse los casos de error (división por cero, etc)
 
 • Documentar todas las funciones
- */
+
+VALIDAR QUE NO INGRESE LETRAS
+AGREGAR LOS NUMEROS ACTUALES
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,9 +42,9 @@ que contenga las funciones para realizar las cinco operaciones.
 int main(void) {
 	setbuf(stdout, NULL);
 	int opcion;
-	int respuesta;
-	int operando1;
-	int operando2;
+	//int respuesta;
+	int operando1 = 0;
+	int operando2 = 0;
 	int suma;
 	int resta;
 	int multiplicacion;
@@ -52,26 +52,18 @@ int main(void) {
 	int factorial1;
 	int factorial2;
 
-	/*
-1. Ingresar 1er operando (A=x)
-2. Ingresar 2do operando (B=y)
-• En el menú deberán aparecer los valores actuales cargados en los operandos A y B
-(donde dice “x” e “y” en el ejemplo, se debe mostrar el número cargado)
-3. Calcular todas las operaciones
-4. Informar resultados
-
-• En el menú deberán aparecer los valores actuales cargados en los operandos A y B
-(donde dice “x” e “y” en el ejemplo, se debe mostrar el número cargado)
-CON ARRAYS?
-
-	 */
 	do{
-		respuesta= utn_getNumero(&opcion, "Menú: \n1-Ingresar 1° operando \n2-Ingresar 2° operando \n3-Calcular todas las operaciones\n4-Informar resultados\n5-Salir",
-					"Error, el número ingresado no es una opción del menú\n", 1, 4, 3);
-		if(!respuesta){
+		/*respuesta= utn_getNumero(&opcion, "Menú: \n1-Ingresar 1° operando A= \n2-Ingresar 2° operando B= \n3-Calcular todas las operaciones\n4-Informar resultados\n5-Salir",
+					"Error, el número ingresado no es una opción del menú\n", 1, 5, 3);*/
+		printf("Menú: \n1-Ingresar 1° operando A=%d",operando1);
+		printf("\n2-Ingresar 2° operando B=%d", operando2);
+		printf("\n3-Calcular todas las operaciones\n4-Informar resultados\n5-Salir");
+		fflush(stdin);
+		scanf("%d", &opcion);
+
+		//if(respuesta == 0){
 			switch(opcion){
 			case 1:
-				//le puedo dar un rango a los numeros?
 				utn_getNumero(&operando1, "Ingresar 1° operando: ", "Error. Reingrese 1° operando", -10000, 10000, 2);
 				break;
 			case 2:
@@ -90,8 +82,10 @@ CON ARRAYS?
 				printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: %.2f \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
 						suma, resta, multiplicacion, division, factorial1, factorial2);
 				break;
+			case 5:
+				break;
 			}
-		}
+		//}
 	}while(opcion != 5);
 
 	return 0;
