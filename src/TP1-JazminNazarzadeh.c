@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "utn.h"
 
+#define TRUE 1
+#define FALSE 0
+
 int main(void) {
 	setbuf(stdout, NULL);
 	int opcion;
@@ -19,6 +22,7 @@ int main(void) {
 	int factorial1;
 	int factorial2;
 	int respuestaDivision;
+	//int flagOperaciones=1;
 
 	do{
 
@@ -27,12 +31,15 @@ int main(void) {
 		if(respuestaMenu == 0){
 			switch(opcion){
 			case 1:
+				system("cls");
 				utn_getNumero(&operando1, "Ingresar 1° operando: \n", "Error. Reingrese 1° operando\n", -10000, 10000, 2);
 				break;
 			case 2:
+				system("cls");
 				utn_getNumero(&operando2, "Ingresar 2° operando: \n", "Error. Reingrese 2° operando\n", -10000, 10000, 2);
 				break;
 			case 3:
+				system("cls");
 				utn_getSuma(operando1, operando2, &suma);
 				utn_getResta(operando1, operando2, &resta);
 				utn_getMultiplicacion(operando1, operando2, &multiplicacion);
@@ -42,6 +49,7 @@ int main(void) {
 
 				break;
 			case 4:
+				system("cls");
 				if(respuestaDivision == 0){
 					printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: %.2f \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
 							suma, resta, multiplicacion, division, factorial1, factorial2);
@@ -49,6 +57,8 @@ int main(void) {
 					printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: Error \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
 							suma, resta, multiplicacion, factorial1, factorial2);
 				}
+
+				//con un flag
 
 				break;
 			}
