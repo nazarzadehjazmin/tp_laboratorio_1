@@ -138,7 +138,7 @@ int utn_getFactorial(int operandoA, int* pResultadoA){
 	int i;
 	int acumuladorFactorialA=1;
 
-	if(pResultadoA != NULL){
+	if(operandoA >= 0 && pResultadoA != NULL){
 		for(i = 1; i <= operandoA; i++){
 			acumuladorFactorialA*=i;
 		}
