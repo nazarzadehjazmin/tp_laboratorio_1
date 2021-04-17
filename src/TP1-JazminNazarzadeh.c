@@ -36,8 +36,6 @@ VALIDAR QUE NO INGRESE LETRAS
 #include <stdlib.h>
 #include "utn.h"
 
-#define ARRAY_NUMEROS 0
-
 int main(void) {
 	setbuf(stdout, NULL);
 	int opcion;
