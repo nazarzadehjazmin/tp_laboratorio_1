@@ -30,7 +30,6 @@ que contenga las funciones para realizar las cinco operaciones.
 • Documentar todas las funciones
 
 VALIDAR QUE NO INGRESE LETRAS
-AGREGAR LOS NUMEROS ACTUALES
 */
 
 #include <stdio.h>
@@ -42,101 +41,55 @@ AGREGAR LOS NUMEROS ACTUALES
 int main(void) {
 	setbuf(stdout, NULL);
 	int opcion;
-	//int respuesta;
-	int operando1 = 0;
-	int operando2 = 0;
+	int respuestaMenu;
+	int operando1=0;
+	int operando2=0;
 	int suma;
 	int resta;
 	int multiplicacion;
 	float division;
 	int factorial1;
 	int factorial2;
+	int respuestaDivision;
 
 	do{
-		/*respuesta= utn_getNumero(&opcion, "Menú: \n1-Ingresar 1° operando A= \n2-Ingresar 2° operando B= \n3-Calcular todas las operaciones\n4-Informar resultados\n5-Salir",
-					"Error, el número ingresado no es una opción del menú\n", 1, 5, 3);*/
-		printf("Menú: \n1-Ingresar 1° operando A=%d",operando1);
-		printf("\n2-Ingresar 2° operando B=%d", operando2);
-		printf("\n3-Calcular todas las operaciones\n4-Informar resultados\n5-Salir");
-		fflush(stdin);
-		scanf("%d", &opcion);
 
-		//if(respuesta == 0){
+		respuestaMenu = utn_getMenu(&opcion, "Error, ingrese una opcion del menu\n", 1, 5, 1, operando1, operando2);
+
+		if(respuestaMenu == 0){
 			switch(opcion){
 			case 1:
-				utn_getNumero(&operando1, "Ingresar 1° operando: ", "Error. Reingrese 1° operando", -10000, 10000, 2);
+				utn_getNumero(&operando1, "Ingresar 1° operando: \n", "Error. Reingrese 1° operando\n", -10000, 10000, 2);
 				break;
 			case 2:
-				utn_getNumero(&operando2, "Ingresar 2° operando: ", "Error. Reingrese 2° operando", -10000, 10000, 2);
+				utn_getNumero(&operando2, "Ingresar 2° operando: \n", "Error. Reingrese 2° operando\n", -10000, 10000, 2);
 				break;
 			case 3:
 				utn_getSuma(operando1, operando2, &suma);
 				utn_getResta(operando1, operando2, &resta);
 				utn_getMultiplicacion(operando1, operando2, &multiplicacion);
-				utn_getDivision(operando1, operando2, &division, "No es posible dividir por cero");
+				respuestaDivision = utn_getDivision(operando1, operando2, &division, "Error. Vuelva a ingresar los operandos\n");
 				utn_getFactorial(operando1, &factorial1);
 				utn_getFactorial(operando2, &factorial2);
 
 				break;
 			case 4:
-				printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: %.2f \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
-						suma, resta, multiplicacion, division, factorial1, factorial2);
-				break;
-			case 5:
+				if(respuestaDivision == 0){
+					printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: %.2f \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
+							suma, resta, multiplicacion, division, factorial1, factorial2);
+				}else{
+					printf("Suma: %d \nResta: %d \nMultiplicacion: %d \nDivisión: Error \nFactorial del 1°operando: %d \nFactorial del 2°operando %d \n",
+							suma, resta, multiplicacion, factorial1, factorial2);
+				}
+
 				break;
 			}
-		//}
+		}
 	}while(opcion != 5);
 
 	return 0;
 }
 
-//division: 1/3= da 0, pero es 0,5
-//no sale con la opcion 5
 
 
-/*
-	utn_getOperandoInt(&operando1, "Ingrese el primer operando(desde -10000 hasta 10000)\n", "Error\n", -10000, 10000, 1);
- 	 if(respuesta1==0){
-		printf("Primer operando: %d \n", operando1);
-	}
-*/
 
-/*
-	utn_getOperandoInt(&operando2, "Ingrese el segundo operando(desde -10000 hasta 10000)\n", "Error\n", -10000, 10000, 1);
- 	 if(respuesta2==0){
-		printf("Operando2: %d \n", operando2);
-	}
-*/
-
-/*
-	utn_getSuma(operando1, operando2, &resultado);
-	if(resultadoSuma==0){
-		printf("Suma: %d", resultado);
-	}
-*/
-/*
-	utn_getResta(operando1, operando2, &resultado);
-	if(resultadoT==0){
-		printf("Resta: %d", resultado);
-	}
-*/
-/*
-	resultadoT= utn_getMultiplicacion(operando1, operando2, &resultado);
-	if(resultadoT==0){
-		printf("Multiplicacion: %d", resultado);
-	}
-*/
-/*
-	resultadoT= utn_getDivision(operando1, operando2, &resultadoFloat, "No es posible dividir por cero\n");
-	if(resultadoT==0){
-		printf("Division: %.2f", resultadoFloat);
-	}
-*/
-
-/*
-	resultadoT= utn_getFactorial(operando1, &resultado1);
-	if(resultadoT==0){
-		printf("Factorial del primer operando: %d \n", resultado1);
-	}
-*/
