@@ -2,14 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Employee.h"
+#include "getNumero.h"
 
 #define ELEMENTS 3
+#define OPTION_MESSAGE "1-Add client \n2-Modify client \n3-Remove client \n4-Report\n"
+#define ERROR_MESSAGE "Error, try again\n"
 
-int main(void) {
+int main(void)
+{
 	setbuf(stdout, NULL);
-	int r;
 	Employee arrayEmployees[ELEMENTS];
-	int index;
+	int option;
 	int id;
 	char name[CHARACTERS_QTY];
 	char lastName[CHARACTERS_QTY];
@@ -17,19 +20,23 @@ int main(void) {
 	int sector;
 
 
-	r = initEmployees(arrayEmployees, ELEMENTS);
-	if(r == 0){
-		printf("init ok\n");
-	}
-
-	addEmployee(arrayEmployees, ELEMENTS, id, name, lastName, salary,sector);
-
-	index = findEmployeeById(arrayEmployees, ELEMENTS, 9);
-	if(index >= 0)
+	if(utn_getNumero(&option, OPTION_MESSAGE, ERROR_MESSAGE, 1, 5, 2) == 0)
 	{
-		printf("findEmployee ok");
+		switch(option)
+		{
+			case 1:
+				addEmployee(arrayEmployees, ELEMENTS, id, name, lastName, salary, sector);
+				break;
+			case 2:
+
+				break;
+			case 3:
+				removeEmployee(arrayEmployees, ELEMENTS, id);
+				break;
+			case 4:
+				break;
+		}
 	}
 
-	removeEmployee(arrayEmployees, ELEMENTS, id);
 	return EXIT_SUCCESS;
 }

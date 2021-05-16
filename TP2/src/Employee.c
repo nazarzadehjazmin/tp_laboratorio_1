@@ -49,47 +49,38 @@ int initEmployees(Employee* list, int len)
  *
  */
 
-int addEmployee(Employee* list, int len, int id, char* name,char* lastName, float salary, int sector)
+int addEmployee(Employee* list, int len, int id, char* name, char* lastName, float salary, int sector)
 {
-	int outcome = 0;
-	Employee auxEmployee;
+	int outcome = -1;
+	Employee buffer;
 	int emptyIndex;
-	char auxName[CHARACTERS_QTY];
-	char auxLastName[CHARACTERS_QTY];
-	float auxSalary;
-	int auxSector;
-
-	//BUSCO ESPACIO EN ARRAY
-	emptyIndex = findEmptyIndex(list, len);
-
-	//SI INDEX == -1 ARRAY LLENO
-	//SI INDEX != -1 TENGO EN INDEX POSICION DE ARRAY LIBRE
-	if (emptyIndex >= 0) {
-		//PIDO DATOS - CARGO Gen AUXILIAR
-		if(utn_getDescripcion(auxName, "Name: \n", "Error\n", 2, CHARACTERS_QTY) == 0 &&
-				utn_getDescripcion(auxLastName, "Last name: \n", "Error\n", 2, CHARACTERS_QTY) == 0 &&
-				utn_getFlotante(&auxSalary, "Salary: \n", "Error\n", 1.1, 100000.1, 2) == 0 &&
-				utn_getNumero(&auxSector, "Sector: \n", "Error\n", 1, 1000, 2) == 0)
-		{
-			id = createNewId();
-			auxEmployee.isEmpty = TAKEN;
 
 
-			name = auxName;
-			lastName = auxLastName;
-			salary = auxSalary;
-			sector = auxSector;
-
-			list[emptyIndex] = auxEmployee;
-		}
-
-		outcome = 1;
-	}
-	else
+	if(list != NULL && len > 0 && id != -1 && name != NULL && lastName != NULL)
 	{
-		printf("There is not an empty index, we can not add another employee\n");
+		emptyIndex = findEmptyIndex(list, len);
+		if (emptyIndex >= 0)
+		{
+			if(utn_getDescripcion(buffer.name, "Name: \n", "Error\n", 2, CHARACTERS_QTY) == 0 &&
+				utn_getDescripcion(buffer.lastName, "Last name: \n", "Error\n", 2, CHARACTERS_QTY) == 0 &&
+				utn_getFlotante(&buffer.salary, "Salary: \n", "Error\n", 1.1, 100000.1, 2) == 0 &&
+				utn_getNumero(&buffer.sector, "Sector: \n", "Error\n", 1, 1000, 2) == 0)
+			{
+				*list = buffer;
+				id = createNewId();
+				list[emptyIndex].isEmpty = TAKEN;
+				strncpy(list[emptyIndex].name, name,CHARACTERS_QTY);
+				strncpy(list[emptyIndex].lastName,lastName,CHARACTERS_QTY);
+				salary = buffer.salary;
+				sector = buffer.sector;
+			}
+			outcome = 0;
+		}
+		else
+		{
+			printf("There is not an empty index, we can not add another employee\n");
+		}
 	}
-
 	return outcome;
 }
 
@@ -142,23 +133,19 @@ int findEmployeeById(Employee* list, int len, int id)
 
 int removeEmployee(Employee* list, int len, int id)
 {
-	//modificado
+
 	int outcome = 0;
 	int idToChange;
 	int indexFound;
 	int flag = 0;
 
-	//LISTO TODOS LOS Gen
 	if(printEmployees(list, len) == 0)
 	{
-		//BANDERA EN 1 SI HAY Gen DADOS DE ALTA PARA LISTAR
 		flag = 1;
 	}
 
-	//SI HAY Gen PARA DAR DE BAJA
 	if(flag)
 	{
-		//PIDO ID A DAR DE BAJA
 		if(utn_getNumero(&idToChange, "Enter ID to remove\n", "Error, try again\n", 1, EMPLOYEE_QTY, 1) == 0)
 		{
 			indexFound = findEmployeeById(list, len, idToChange);
@@ -166,10 +153,7 @@ int removeEmployee(Employee* list, int len, int id)
 
 		if(indexFound >= 0)
 		{
-		/**PREGUNTAR SI DESEA CONTINUAR*/
-		//BAJA ACEPTADA - CAMBIO ESTADO A "BAJA"
 			list[indexFound].isEmpty = REMOVE;
-		//RETORNO 1 SI SE DIO DE BAJA CORRECTAMENTE
 			outcome = 1;
 		}
 	}
@@ -190,7 +174,36 @@ indicate UP or DOWN order
 
 int sortEmployees(Employee* list, int len, int order)
 {
-	return 0;
+	int outcome = -1;
+	Employee buffer;
+	int bufferComparison;
+
+	if(list != NULL && len > 0){
+		do{
+			order = 0;
+			for(int i = 0; i < len - 1; i++){
+				if(list[i].isEmpty || list[i+1].isEmpty){
+					continue;
+				}
+
+				bufferComparison = strncmp(list[i].lastName, list[i+1].lastName, CHARACTERS_QTY);
+				if((bufferComparison > 0) ||
+					(bufferComparison == 0 &&
+					strncmp(list[i].sector, list[i+1].sector, EMPLOYEE_QTY) < 0)){
+					order = 1;
+					buffer = list[i];
+					list[i] = list[i+1];
+					list[i+1] = buffer;
+				}
+
+				}
+			len--;
+		}while(order);
+		outcome = 0;
+	}
+
+
+	return outcome;
 }
 
 
@@ -204,7 +217,6 @@ int sortEmployees(Employee* list, int len, int order)
 
 void printOneEmployee(Employee oneEmployee)
 {
-	//AGREGAR LOS CAMPOS FALTANTES
 	printf("ID %d - NAME: %s - LAST NAME: %s - SALARY: %.2f - SECTOR %d", oneEmployee.id, oneEmployee.name, oneEmployee.lastName, oneEmployee.salary, oneEmployee.sector);
 }
 
@@ -224,23 +236,17 @@ int printEmployees(Employee* list, int length)
 	int outcome = 0;
 	int quanty = 0;
 
-	//CABECERA
 	printf("\n\t> EMPLOYEES LIST\n");
-	//SI EXISTE EL ARRAY Y EL LIMITE ES VALIDO
 	if (list != NULL && length > 0) {
-		//RECORRO TODO EL ARRAY
 		for (i = 0; i < length; i++) {
-			//PREGUNTO POR SU ESTADO "OCUPADO"
-			if (list[i].isEmpty == TAKEN) {
-				//MUESTRO UN SOLO Gen
+			if (list[i].isEmpty == TAKEN)
+			{
 				printOneEmployee(list[i]);
-				//CONTADOR DE Gen
 				quanty++;
 			}
 		}
 	}
 
-	//SI CANTIDAD == 0 - NO HUBO Gen PARA MOSTRAR (ARRAY SIN ALTAS)
 	if (quanty > 0) {
 		outcome = 1;
 	}
@@ -290,36 +296,5 @@ int findEmptyIndex(Employee* list, int len)
 	}
 	return outcome;
 }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//                              SETS & GETS
-
-/*
-int employee_setName(Employee* this, char* name)
-{
-	int outcome = -1;
-
-	if(this != NULL && name != NULL && isValidNombre(name) )
-	{
-		strcpy(this->name, name);
-		outcome = 0;
-	}
-	return outcome;
-}
-
-char* empleado_getNombre(Employee* this, int* flagError)
-{
-	*flagError = -1;
-	char* auxName= NULL;
-
-	if(this != NULL && flagError != NULL )
-	{
-		auxName = this->name;
-		*flagError = 0;
-	}
-	return auxName;
-}
-*/
 
 
