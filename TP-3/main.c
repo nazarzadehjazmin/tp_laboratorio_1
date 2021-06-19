@@ -39,8 +39,11 @@ int main()
 {
     int option = 0;
     LinkedList* listaEmpleados;
+    int len;
 
     listaEmpleados = ll_newLinkedList();
+    len = ll_len(listaEmpleados);
+    printf("len: ", len);
 
     do{
     	if(utn_getNumero(&option, MSG, MSG_ERROR, 1, 10, 1)  == 0)
