@@ -4,53 +4,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ArrayEmployees.h"
-#define MENU_OPTIONS "\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir"
-#define EMPTY_LIST "\nNo hay empleados en la lista. Dé uno de alta con la opcion 1\n"
+#define EMPTY_LIST "\nNo hay empleados en la lista. \nIngrese a la opcion 1 para dar de alta empleados, luego, reingrese la opcion seleccionada\n"
 
 int main(void) {
 	setbuf(stdout, NULL);
 	Employee employeeList[QTY_EMPLOYEE];
 	int menuOption;
 	int id;
-	int optionCase1;
 
 	if(initEmployees(employeeList, QTY_EMPLOYEE) == 0)
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, MENU_OPTIONS, ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{
 					case 1:
-							do
-							{
-								if(utn_getNumero(&optionCase1, "\n1-Hardcodear empleados \n2-Cargar empleado \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
-								{
-									switch(optionCase1)
-									{
-										case 1:
-											if(hardcodearData(employeeList, QTY_EMPLOYEE) == 0)
-											{
-												printEmployees(employeeList, QTY_EMPLOYEE);
-											}
-											break;
-										case 2:
-											if(uploadEmployee(employeeList, QTY_EMPLOYEE, &id) == 0 &&
-											   printEmployees(employeeList, QTY_EMPLOYEE) == 0)
-											{
-												printf("\nEmpleado cargado exitosamente");
-											}
-											else
-											{
-												printf("\nNo se ha podido cargar el empleado");
-											}
-											break;
-									}
-								}
-							}while(optionCase1 != 3);
-
-
+						alta_menu(employeeList, QTY_EMPLOYEE);
 						break;
 					case 2:
 						if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0 &&
@@ -81,9 +52,10 @@ int main(void) {
 						}
 						break;
 					case 4:
-						if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0)
-						{
 
+						 if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0)
+						{
+							 informe_menu(employeeList, QTY_EMPLOYEE);
 						}
 						else
 						{

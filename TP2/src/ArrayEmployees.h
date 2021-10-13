@@ -18,6 +18,9 @@
 #define QTY_SECTOR 100
 #define ID_NOEXISTE "\nEl id ingresado no existe"
 #define CONTINUAR "Desea continuar?"
+#define UP 1 //asc, de menor a mayor
+#define DOWN 0 //desc, de mayor a menor
+
 
 //buscar precio mas caro en la fx de mostrar producto mas caro
 
@@ -154,6 +157,84 @@ int ChangeParametersEmployee(Employee* list, int len);
 int isEmployeesListEmpty(Employee *list, int len);
 
 
+/** \brief function for preloaded data
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
 int hardcodearData(Employee* list, int len);
+
+
+/** \brief creates a menu for "informes"
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int informe_menu(Employee* list, int len);
+
+
+/** \brief creates a menu for "alta"
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int alta_menu(Employee* list, int len);
+
+
+/** \brief creates a submenu for the first option of "informes"
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int informe_submenu(Employee* list, int len);
+
+
+/** \brief calculates the total salary
+ *
+ * \param list Employee
+ * \param len int
+ * \return total salary if success, -1 error
+ *
+ */
+int calculateTotalSalary(Employee* list, int len);
+
+
+/** \brief calculates the average salary
+ *
+ * \param list Employee
+ * \param len int
+ * \param averageSalary float*
+ * \return int 0 success, -1 error
+ *
+ */
+int calculateAverageSalary(Employee* list, int len, float* averageSalary);
+
+
+/** \brief quantifies the number of employees
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int calculateEmployeesQty(Employee* list, int len, int* employeeTotalQty);
+
+
+/** \brief quantifies the number of employees that are above the average salary
+ *
+ * \param list Employee
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int calculateEmployeesAboveAverageSalaryQty(Employee* list, int len, int* employeeQtyAboveAverageSalary);
 
 #endif

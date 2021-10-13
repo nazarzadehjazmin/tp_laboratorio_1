@@ -4,7 +4,7 @@ static int generateNewId(void);
 
 static int generateNewId(void)
 {
-	static int id = 5;
+	static int id = 6;
 	id++;
 	return  id;
 }
@@ -147,10 +147,34 @@ int removeEmployee(Employee* list, int len, int id)
 int sortEmployees(Employee* list, int len, int order)
 {
 	int output = -1;
+	int flagSwap = 1;
+	int i;
+	Employee buffer;
+	int nuevoLimite;
 
-	if(list != NULL && len > 0)
+	if(list != NULL && len > 0 && (order == UP || order == DOWN))
 	{
-
+		nuevoLimite = len-1;
+		do{
+			flagSwap = 0;
+			for(i = 0; i < nuevoLimite ; i++){
+				/*if((order == DOWN && strncasecmp(list[i].lastName, list[i+1].lastName,NAME_LEN) < 0) ||
+				   (order == UP && strncasecmp(list[i].lastName, list[i+1].lastName,NAME_LEN) > 0) ||
+				   (strncasecmp(list[i].lastName, list[i+1].lastName, NAME_LEN) == 0 && list[i].sector > list[i+1].sector))*/
+				if((order == UP && (strncasecmp(list[i].lastName, list[i + 1].lastName,NAME_LEN)>0 ||
+					(strncasecmp(list[i].lastName, list[i + 1].lastName,NAME_LEN)==0 && list[i].sector > list[i + 1].sector))) ||
+					(order == DOWN && (strncasecmp(list[i].lastName, list[i + 1].lastName,NAME_LEN)<0 ||
+					(strncasecmp(list[i].lastName, list[i + 1].lastName,NAME_LEN)==0 && list[i].sector < list[i + 1].sector))))
+				{
+					flagSwap = 1;
+					buffer = list[i];
+					list[i] = list[i+1];
+					list[i+1] = buffer;
+				}
+			}
+			nuevoLimite--;
+		}while(flagSwap);
+		output = 0;
 	}
 
 	return output;
@@ -312,13 +336,209 @@ int hardcodearData(Employee* list, int len)
 	if(list != NULL && len > 0)
 	{
 		addEmployee(list, len, 1, "Juan", "Lopez", 15000, 1);
-		addEmployee(list, len, 2, "Pedro", "Gomez", 13000, 2);
+		addEmployee(list, len, 2, "Pedro", "Gomez", 10000, 2);
 		addEmployee(list, len, 3, "Sonia", "Loria", 13000, 3);
-		addEmployee(list, len, 4, "Pablo", "Alvarez", 13000, 2);
-		addEmployee(list, len, 5, "Sofia", "Sanchez", 13000, 1);
+		addEmployee(list, len, 4, "Pablo", "Alvarez", 12000, 2);
+		addEmployee(list, len, 5, "Sofia", "Sanchez", 19000, 1);
+		addEmployee(list, len, 6, "Juan", "Lopez", 17000, 2);
 
 		output = 0;
 	}
 
 	return output;
+}
+
+int informe_menu(Employee* list, int len)
+{
+	int output = -1;
+	int option;
+	float totalSalary;
+	float averageSalary;
+	int employeeQtyAboveAverageSalary;
+
+	if(list != NULL && len > 0)
+	{
+		do
+		{
+			if(utn_getNumero(&option, "\n1-Listado de los empleados ordenados alfabéticamente por Apellido y Sector \n2- Total y promedio de los salarios, y cuántos empleados superan el salario promedio \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			{
+				switch(option)
+				{
+					case 1:
+						if(informe_submenu(list, len) == 0)
+						{
+							printf("\nLista ordenada\n");
+						}
+						break;
+					case 2:
+						totalSalary = calculateTotalSalary(list, len);
+						if(totalSalary != -1 &&
+						   calculateAverageSalary(list, len, &averageSalary) == 0 && calculateEmployeesAboveAverageSalaryQty(list, len, &employeeQtyAboveAverageSalary) == 0)
+						{
+							printf("\nSalario total: %.2f \nSalario promedio: %.2f \nCantidad de empleados que superan el salario promedio: %d", totalSalary, averageSalary, employeeQtyAboveAverageSalary);
+						}
+
+
+						break;
+				}
+			}
+		}while(option != 3);
+
+		output = 0;
+	}
+
+	return output;
+}
+
+int informe_submenu(Employee* list, int len)
+{
+	int output = -1;
+	int option;
+
+	if(list != NULL && len > 0)
+	{
+		do
+		{
+			if(utn_getNumero(&option, "\n1-Ordenar de forma ascendente \n2-Ordenar de forma descendente \n3-Volver al menu", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			{
+				switch(option)
+				{
+					case 1:
+						sortEmployees(list, len, UP);
+						break;
+					case 2:
+						sortEmployees(list, len, DOWN);
+						break;
+				}
+				printEmployees(list, len);
+			}
+		}while(option != 3);
+
+		output = 0;
+	}
+
+	return output;
+}
+
+int alta_menu(Employee* list, int len)
+{
+	int output = -1;
+	int option;
+	int id;
+
+	if(list != NULL && len > 0)
+	{
+		do
+		{
+			if(utn_getNumero(&option, "\n1-Hardcodear empleados \n2-Cargar empleado \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			{
+				switch(option)
+				{
+					case 1:
+						if(hardcodearData(list, len) == 0)
+						{
+							printEmployees(list, len);
+						}
+						break;
+					case 2:
+						if(uploadEmployee(list, len, &id) == 0 &&
+						   printEmployees(list, len) == 0)
+						{
+							printf("\nEmpleado cargado exitosamente");
+						}
+						else
+						{
+							printf("\nNo se ha podido cargar el empleado");
+						}
+						break;
+				}
+			}
+		}while(option!= 3);
+	}
+
+	return output;
+}
+
+int calculateTotalSalary(Employee* list, int len)
+{
+	int output = -1;
+	float totalSalary = 0;
+
+	if(list != NULL && len > 0)
+	{
+		for(int i = 0; i < len; i++)
+		{
+			if(list[i].isEmpty == FALSE)
+			{
+				totalSalary += list[i].salary;
+			}
+		}
+		output = totalSalary;
+	}
+	return output;
+}
+
+int calculateAverageSalary(Employee* list, int len, float* averageSalary)
+{
+	int output = -1;
+	float totalSalary;
+	int employeeQty;
+
+	if(list != NULL && len > 0)
+	{
+		totalSalary = calculateTotalSalary(list, len);
+		if(totalSalary != -1 && calculateEmployeesQty(list, len, &employeeQty) == 0)
+		{
+			*averageSalary = totalSalary / employeeQty;
+		}
+		output = 0;
+	}
+
+	return output;
+}
+
+int calculateEmployeesQty(Employee* list, int len, int* employeeTotalQty)
+{
+	int output = -1;
+	int employeeQty = 0;
+
+	if(list != NULL && len > 0)
+	{
+		for(int i = 0; i < len; i++)
+		{
+			if(list[i].isEmpty == FALSE)
+			{
+				employeeQty++;
+			}
+		}
+
+		*employeeTotalQty = employeeQty;
+		output = 0;
+	}
+
+		return output;
+}
+
+int calculateEmployeesAboveAverageSalaryQty(Employee* list, int len, int* employeeQtyAboveAverageSalary)
+{
+	int output = -1;
+	float averageSalary;
+	int employeeQty = 0;
+
+	if(list != NULL && len > 0)
+	{
+		calculateAverageSalary(list, len, &averageSalary);
+
+		for(int i = 0; i < len; i++)
+		{
+			if(list[i].isEmpty == FALSE && list[i].salary > averageSalary)
+			{
+				employeeQty++;
+			}
+		}
+		*employeeQtyAboveAverageSalary = employeeQty;
+		output = 0;
+	}
+
+		return output;
 }
