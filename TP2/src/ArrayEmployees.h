@@ -15,11 +15,13 @@
 #define LASTNAME_LEN 51
 #define QTY_REINTENTO 5
 #define CHANGE_MENU "\nQue desea modificar?\n1-Nombre \n2-Apellido \n3-Salario \n4-Sector \n5-Volver al menu principal"
-#define QTY_SECTOR 100
+#define QTY_SECTOR 10
 #define ID_NOEXISTE "\nEl id ingresado no existe"
 #define CONTINUAR "Desea continuar?"
 #define UP 1 //asc, de menor a mayor
 #define DOWN 0 //desc, de mayor a menor
+#define EMPLOYEE_NOTREMOVED "\nNo se ha eliminado ningun empleado"
+#define QTY_SALARY 1000000
 
 
 //buscar precio mas caro en la fx de mostrar producto mas caro

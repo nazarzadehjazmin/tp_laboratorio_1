@@ -10,13 +10,13 @@ int main(void) {
 	setbuf(stdout, NULL);
 	Employee employeeList[QTY_EMPLOYEE];
 	int menuOption;
-	int id;
+	int id = 0;
 
 	if(initEmployees(employeeList, QTY_EMPLOYEE) == 0)
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, "\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\nMenu principal:\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{
@@ -37,14 +37,7 @@ int main(void) {
 					case 3:
 						if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0)
 						{
-							if(removeEmployee(employeeList, QTY_EMPLOYEE, id) == 0)
-							{
-								printf("\nEmpleado eliminado exitosamente");
-							}
-							else
-							{
-								printf("\nEl empleado no se ha podido eliminar");
-							}
+							removeEmployee(employeeList, QTY_EMPLOYEE, id);
 						}
 						else
 						{

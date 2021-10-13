@@ -1,5 +1,6 @@
 #include "ArrayEmployees.h"
 
+/*
 static int generateNewId(void);
 
 static int generateNewId(void)
@@ -8,6 +9,7 @@ static int generateNewId(void)
 	id++;
 	return  id;
 }
+*/
 
 int initEmployees(Employee* list, int len)
 {
@@ -52,12 +54,13 @@ int uploadEmployee(Employee *list, int len, int* id)
 	{
 		if(utn_getNombre(buffer.name, "\nNombre del empleado: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0 &&
 		   utn_getNombre(buffer.lastName, "\nApellido del empleado: ", ERROR_MSG, LASTNAME_LEN, QTY_REINTENTO) == 0 &&
-		   utn_getFloat(&buffer.salary, "\nSalario: ", ERROR_MSG, 0, 1000000.5, QTY_REINTENTO) == 0 &&
-		   utn_getNumero(&buffer.sector, "\nSector: ", ERROR_MSG, 0, 400, QTY_REINTENTO) == 0)
+		   utn_getFloat(&buffer.salary, "\nSalario: ", ERROR_MSG, 0, QTY_SALARY, QTY_REINTENTO) == 0 &&
+		   utn_getNumero(&buffer.sector, "\nSector: ", ERROR_MSG, 0, QTY_SECTOR, QTY_REINTENTO) == 0)
 		{
-			//(*id)++;
-			//buffer.id = (*id);
-			buffer.id = generateNewId();
+			*id = 6;
+			(*id)++;
+			buffer.id = (*id);
+			//buffer.id = generateNewId();
 			if(addEmployee(list, len, buffer.id, buffer.name, buffer.lastName, buffer.salary, buffer.sector) == 0)
 			{
 				output = 0;
@@ -130,11 +133,18 @@ int removeEmployee(Employee* list, int len, int id)
 				  (respuesta == 'Y' || respuesta == 'y'))
 				{
 					list[index].isEmpty = TRUE;
+					printf("\nEmpleado eliminado exitosamente\n");
+					printEmployees(list, len);
+				}
+				else
+				{
+					printf(EMPLOYEE_NOTREMOVED);
 				}
 			}
 			else
 			{
 				printf(ID_NOEXISTE);
+				printf(EMPLOYEE_NOTREMOVED);
 			}
 		}
 		output = 0;
@@ -251,7 +261,7 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 2:
-								if(utn_getNombre(buffer.name, "\nNuevo nombre: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
+								if(utn_getNombre(buffer.lastName, "\nNuevo apellido: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
 								{
 									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
@@ -266,7 +276,7 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 3:
-								if(utn_getNombre(buffer.name, "\nNuevo nombre: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
+								if(utn_getFloat(&buffer.salary, "\nNuevo salario: ", ERROR_MSG, 1, QTY_SALARY, QTY_REINTENTO) == 0)
 								{
 									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
@@ -281,7 +291,7 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 4:
-								if(utn_getNombre(buffer.name, "\nNuevo nombre: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
+								if(utn_getNumero(&buffer.sector, "\nNuevo sector: ", ERROR_MSG, 1, QTY_SECTOR, QTY_REINTENTO) == 0)
 								{
 									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
@@ -425,6 +435,7 @@ int alta_menu(Employee* list, int len)
 	int output = -1;
 	int option;
 	int id;
+	int contadorHardcodeo = 0;
 
 	if(list != NULL && len > 0)
 	{
@@ -435,10 +446,20 @@ int alta_menu(Employee* list, int len)
 				switch(option)
 				{
 					case 1:
-						if(hardcodearData(list, len) == 0)
+						contadorHardcodeo++;
+
+						if(contadorHardcodeo == 1)
 						{
-							printEmployees(list, len);
+							if(hardcodearData(list, len) == 0)
+							{
+								printEmployees(list, len);
+							}
 						}
+						else
+						{
+							printf("\nNo puede volver a harcodear los datos");
+						}
+
 						break;
 					case 2:
 						if(uploadEmployee(list, len, &id) == 0 &&
