@@ -8,11 +8,11 @@
 
 int main(void) {
 	setbuf(stdout, NULL);
-	Employee employeeList[QTY_EMPLOYEE];
+	Employee employeeList[QTY_CLIENTE];
 	int menuOption;
 	int id = 0;
 
-	if(initEmployees(employeeList, QTY_EMPLOYEE) == 0)
+	if(initEmployees(employeeList, QTY_CLIENTE) == 0)
 	{
 		do
 		{
@@ -21,13 +21,13 @@ int main(void) {
 				switch(menuOption)
 				{
 					case 1:
-						alta_menu(employeeList, QTY_EMPLOYEE);
+						alta_menu(employeeList, QTY_CLIENTE);
 						break;
 					case 2:
-						if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0 &&
-						   ChangeParametersEmployee(employeeList, QTY_EMPLOYEE) == 0)
+						if(isEmployeesListEmpty(employeeList, QTY_CLIENTE) == 0 &&
+						   ChangeParametersEmployee(employeeList, QTY_CLIENTE) == 0)
 						{
-							printEmployees(employeeList, QTY_EMPLOYEE);
+							printEmployees(employeeList, QTY_CLIENTE);
 						}
 						else
 						{
@@ -35,9 +35,9 @@ int main(void) {
 						}
 						break;
 					case 3:
-						if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0)
+						if(isEmployeesListEmpty(employeeList, QTY_CLIENTE) == 0)
 						{
-							removeEmployee(employeeList, QTY_EMPLOYEE, id);
+							removeEmployee(employeeList, QTY_CLIENTE, id);
 						}
 						else
 						{
@@ -46,9 +46,9 @@ int main(void) {
 						break;
 					case 4:
 
-						 if(isEmployeesListEmpty(employeeList, QTY_EMPLOYEE) == 0)
+						 if(isEmployeesListEmpty(employeeList, QTY_CLIENTE) == 0)
 						{
-							 informe_menu(employeeList, QTY_EMPLOYEE);
+							 informe_menu(employeeList, QTY_CLIENTE);
 						}
 						else
 						{

@@ -10,7 +10,7 @@
 #define TRUE 1
 #define FALSE 0
 #define ERROR_MSG "Error, reingrese el dato"
-#define QTY_EMPLOYEE 1000
+#define QTY_CLIENTE 1000
 #define NAME_LEN 51
 #define LASTNAME_LEN 51
 #define QTY_REINTENTO 5
@@ -22,9 +22,6 @@
 #define DOWN 0 //desc, de mayor a menor
 #define EMPLOYEE_NOTREMOVED "\nNo se ha eliminado ningun empleado"
 #define QTY_SALARY 1000000
-
-
-//buscar precio mas caro en la fx de mostrar producto mas caro
 
 
 typedef struct

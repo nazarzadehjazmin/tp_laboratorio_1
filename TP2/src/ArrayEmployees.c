@@ -123,7 +123,7 @@ int removeEmployee(Employee* list, int len, int id)
 	{
 		printEmployees(list, len);
 
-		if(utn_getNumero(&id, "\nSeleccione el id del empleado a dar de baja: ", ERROR_MSG, 1, QTY_EMPLOYEE, QTY_REINTENTO) == 0)
+		if(utn_getNumero(&id, "\nSeleccione el id del empleado a dar de baja: ", ERROR_MSG, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
 		{
 			index = findEmployeeById(list, len, id);
 
@@ -233,7 +233,7 @@ int ChangeParametersEmployee(Employee* list, int len)
 	{
 		printEmployees(list, len);
 
-		if(utn_getNumero(&idIngresado, "\nSeleccione el id del empleado a modificar: ", ERROR_MSG, 1, QTY_EMPLOYEE, QTY_REINTENTO) == 0)
+		if(utn_getNumero(&idIngresado, "\nSeleccione el id del empleado a modificar: ", ERROR_MSG, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
 		{
 			index = findEmployeeById(list, len, idIngresado);
 
@@ -435,7 +435,7 @@ int alta_menu(Employee* list, int len)
 	int output = -1;
 	int option;
 	int id;
-	int contadorHardcodeo = 0;
+	static int contadorHardcodeo = 0;
 
 	if(list != NULL && len > 0)
 	{
@@ -457,7 +457,7 @@ int alta_menu(Employee* list, int len)
 						}
 						else
 						{
-							printf("\nNo puede volver a harcodear los datos");
+							printf("\nNo puede volver a hardcodear los datos");
 						}
 
 						break;
