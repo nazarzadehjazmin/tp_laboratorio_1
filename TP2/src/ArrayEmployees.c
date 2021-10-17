@@ -475,6 +475,7 @@ int alta_menu(Employee* list, int len)
 				}
 			}
 		}while(option!= 3);
+		output = 0;
 	}
 
 	return output;

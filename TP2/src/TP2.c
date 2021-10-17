@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ArrayEmployees.h"
-#define EMPTY_LIST "\nNo hay empleados en la lista. \nIngrese a la opcion 1 para dar de alta empleados, luego, reingrese la opcion seleccionada\n"
+#define EMPTY_LIST_CLI "\nNo hay empleados en la lista. \nIngrese a la opcion 1 para dar de alta empleados, luego, reingrese la opcion seleccionada\n"
 
 int main(void) {
 	setbuf(stdout, NULL);
@@ -31,7 +31,7 @@ int main(void) {
 						}
 						else
 						{
-							printf(EMPTY_LIST);
+							printf(EMPTY_LIST_CLI);
 						}
 						break;
 					case 3:
@@ -41,7 +41,7 @@ int main(void) {
 						}
 						else
 						{
-							printf(EMPTY_LIST);
+							printf(EMPTY_LIST_CLI);
 						}
 						break;
 					case 4:
@@ -52,7 +52,7 @@ int main(void) {
 						}
 						else
 						{
-							printf(EMPTY_LIST);
+							printf(EMPTY_LIST_CLI);
 						}
 						break;
 				}
