@@ -1,6 +1,6 @@
 #include "ArrayEmployees.h"
 
-/*
+
 static int generateNewId(void);
 
 static int generateNewId(void)
@@ -9,7 +9,7 @@ static int generateNewId(void)
 	id++;
 	return  id;
 }
-*/
+
 
 int initEmployees(Employee* list, int len)
 {
@@ -57,10 +57,10 @@ int uploadEmployee(Employee *list, int len, int* id)
 		   utn_getFloat(&buffer.salary, "\nSalario: ", ERROR_MSG, 0, QTY_SALARY, QTY_REINTENTO) == 0 &&
 		   utn_getNumero(&buffer.sector, "\nSector: ", ERROR_MSG, 0, QTY_SECTOR, QTY_REINTENTO) == 0)
 		{
-			*id = 6;
-			(*id)++;
-			buffer.id = (*id);
-			//buffer.id = generateNewId();
+			//*id = 6;
+			//(*id)++;
+			//buffer.id = (*id);
+			buffer.id = generateNewId();
 			if(addEmployee(list, len, buffer.id, buffer.name, buffer.lastName, buffer.salary, buffer.sector) == 0)
 			{
 				output = 0;
