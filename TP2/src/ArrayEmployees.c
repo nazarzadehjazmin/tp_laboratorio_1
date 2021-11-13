@@ -26,7 +26,7 @@ int initEmployees(Employee* list, int len)
 	return output;
 }
 
-int findEmptyIndex(Employee *list, int len)
+int findEmptyIndexLocalidad(Employee *list, int len)
 {
 	int output = -1;
 
@@ -50,12 +50,12 @@ int uploadEmployee(Employee *list, int len, int* id)
 	int output = -1;
 	Employee buffer;
 
-	if(list != NULL && len > 0 && id != NULL && findEmptyIndex(list, len) != -1)
+	if(list != NULL && len > 0 && id != NULL && findEmptyIndexLocalidad(list, len) != -1)
 	{
-		if(utn_getNombre(buffer.name, "\nNombre del empleado: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0 &&
-		   utn_getNombre(buffer.lastName, "\nApellido del empleado: ", ERROR_MSG, LASTNAME_LEN, QTY_REINTENTO) == 0 &&
-		   utn_getFloat(&buffer.salary, "\nSalario: ", ERROR_MSG, 0, QTY_SALARY, QTY_REINTENTO) == 0 &&
-		   utn_getNumero(&buffer.sector, "\nSector: ", ERROR_MSG, 0, QTY_SECTOR, QTY_REINTENTO) == 0)
+		if(utn_getNombre(buffer.name, "\nNombre del empleado: ", ERROR_MSG_L, NAME_LEN, QTY_REINTENTO) == 0 &&
+		   utn_getNombre(buffer.lastName, "\nApellido del empleado: ", ERROR_MSG_L, LASTNAME_LEN, QTY_REINTENTO) == 0 &&
+		   utn_getFloat(&buffer.salary, "\nSalario: ", ERROR_MSG_L, 0, QTY_SALARY, QTY_REINTENTO) == 0 &&
+		   utn_getNumero(&buffer.sector, "\nSector: ", ERROR_MSG_L, 0, QTY_SECTOR, QTY_REINTENTO) == 0)
 		{
 			//*id = 6;
 			//(*id)++;
@@ -78,7 +78,7 @@ int addEmployee(Employee* list, int len, int id, char name[], char lastName[], f
 
 	if(list != NULL && len > 0 && id > 0 && name != NULL && lastName != NULL && salary > 0 && sector > 0)
 	{
-		i = findEmptyIndex(list, len);
+		i = findEmptyIndexLocalidad(list, len);
 		list[i].id = id;
 		strncpy(list[i].name, name, NAME_LEN);
 		strncpy(list[i].lastName, lastName, LASTNAME_LEN);
@@ -123,13 +123,13 @@ int removeEmployee(Employee* list, int len, int id)
 	{
 		printEmployees(list, len);
 
-		if(utn_getNumero(&id, "\nSeleccione el id del empleado a dar de baja: ", ERROR_MSG, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
+		if(utn_getNumero(&id, "\nSeleccione el id del empleado a dar de baja: ", ERROR_MSG_L, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
 		{
 			index = findEmployeeById(list, len, id);
 
 			if(index != -1 && list[index].isEmpty == FALSE)
 			{
-				if(utn_getContinuar(&respuesta, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
+				if(utn_getContinuar(&respuesta, CONTINUAR, ERROR_MSG_L, QTY_REINTENTO) == 0 &&
 				  (respuesta == 'Y' || respuesta == 'y'))
 				{
 					list[index].isEmpty = TRUE;
@@ -233,7 +233,7 @@ int ChangeParametersEmployee(Employee* list, int len)
 	{
 		printEmployees(list, len);
 
-		if(utn_getNumero(&idIngresado, "\nSeleccione el id del empleado a modificar: ", ERROR_MSG, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
+		if(utn_getNumero(&idIngresado, "\nSeleccione el id del empleado a modificar: ", ERROR_MSG_L, 1, QTY_CLIENTE, QTY_REINTENTO) == 0)
 		{
 			index = findEmployeeById(list, len, idIngresado);
 
@@ -241,14 +241,14 @@ int ChangeParametersEmployee(Employee* list, int len)
 			{
 				do
 				{
-					if(utn_getNumero(&option, CHANGE_MENU, ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+					if(utn_getNumero(&option, CHANGE_MENU, ERROR_MSG_L, 1, 5, QTY_REINTENTO) == 0)
 					{
 						switch(option)
 						{
 							case 1:
-								if(utn_getNombre(buffer.name, "\nNuevo nombre: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
+								if(utn_getNombre(buffer.name, "\nNuevo nombre: ", ERROR_MSG_L, NAME_LEN, QTY_REINTENTO) == 0)
 								{
-									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
+									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG_L, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
 									{
 										strncpy(list[index].name, buffer.name, NAME_LEN);
@@ -261,9 +261,9 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 2:
-								if(utn_getNombre(buffer.lastName, "\nNuevo apellido: ", ERROR_MSG, NAME_LEN, QTY_REINTENTO) == 0)
+								if(utn_getNombre(buffer.lastName, "\nNuevo apellido: ", ERROR_MSG_L, NAME_LEN, QTY_REINTENTO) == 0)
 								{
-									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
+									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG_L, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
 									{
 										strncpy(list[index].lastName, buffer.lastName, LASTNAME_LEN);
@@ -276,9 +276,9 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 3:
-								if(utn_getFloat(&buffer.salary, "\nNuevo salario: ", ERROR_MSG, 1, QTY_SALARY, QTY_REINTENTO) == 0)
+								if(utn_getFloat(&buffer.salary, "\nNuevo salario: ", ERROR_MSG_L, 1, QTY_SALARY, QTY_REINTENTO) == 0)
 								{
-									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
+									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG_L, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
 									{
 										list[index].salary = buffer.salary;
@@ -291,9 +291,9 @@ int ChangeParametersEmployee(Employee* list, int len)
 								}
 								break;
 							case 4:
-								if(utn_getNumero(&buffer.sector, "\nNuevo sector: ", ERROR_MSG, 1, QTY_SECTOR, QTY_REINTENTO) == 0)
+								if(utn_getNumero(&buffer.sector, "\nNuevo sector: ", ERROR_MSG_L, 1, QTY_SECTOR, QTY_REINTENTO) == 0)
 								{
-									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
+									if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG_L, QTY_REINTENTO) == 0 &&
 									  (response == 'Y' || response == 'y'))
 									{
 										list[index].sector = buffer.sector;
@@ -339,7 +339,7 @@ int isEmployeesListEmpty(Employee *list, int len)
 	return output;
 }
 
-int hardcodearData(Employee* list, int len)
+int hardcodearData_localidad(Employee* list, int len)
 {
 	int output = -1;
 
@@ -370,7 +370,7 @@ int informe_menu(Employee* list, int len)
 	{
 		do
 		{
-			if(utn_getNumero(&option, "\n1-Listado de los empleados ordenados alfabéticamente por Apellido y Sector \n2- Total y promedio de los salarios, y cuántos empleados superan el salario promedio \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&option, "\n1-Listado de los empleados ordenados alfabéticamente por Apellido y Sector \n2- Total y promedio de los salarios, y cuántos empleados superan el salario promedio \n3-Volver al menu principal", ERROR_MSG_L, 1, 3, QTY_REINTENTO) == 0)
 			{
 				switch(option)
 				{
@@ -409,7 +409,7 @@ int informe_submenu(Employee* list, int len)
 	{
 		do
 		{
-			if(utn_getNumero(&option, "\n1-Ordenar de forma ascendente \n2-Ordenar de forma descendente \n3-Volver al menu", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&option, "\n1-Ordenar de forma ascendente \n2-Ordenar de forma descendente \n3-Volver al menu", ERROR_MSG_L, 1, 3, QTY_REINTENTO) == 0)
 			{
 				switch(option)
 				{
@@ -430,7 +430,7 @@ int informe_submenu(Employee* list, int len)
 	return output;
 }
 
-int alta_menu(Employee* list, int len)
+int alta_menuLocalidad(Employee* list, int len)
 {
 	int output = -1;
 	int option;
@@ -441,7 +441,7 @@ int alta_menu(Employee* list, int len)
 	{
 		do
 		{
-			if(utn_getNumero(&option, "\n1-Hardcodear empleados \n2-Cargar empleado \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&option, "\n1-Hardcodear empleados \n2-Cargar empleado \n3-Volver al menu principal", ERROR_MSG_L, 1, 3, QTY_REINTENTO) == 0)
 			{
 				switch(option)
 				{
@@ -450,7 +450,7 @@ int alta_menu(Employee* list, int len)
 
 						if(contadorHardcodeo == 1)
 						{
-							if(hardcodearData(list, len) == 0)
+							if(hardcodearData_localidad(list, len) == 0)
 							{
 								printEmployees(list, len);
 							}

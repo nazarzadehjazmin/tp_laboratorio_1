@@ -16,12 +16,12 @@ int main(void) {
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, "\nMenu principal:\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\nMenu principal:\n1-Alta \n2-Modificar \n3-Baja \n4-Informar \n5-Salir", ERROR_MSG_L, 1, 5, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{
 					case 1:
-						alta_menu(employeeList, QTY_CLIENTE);
+						alta_menuLocalidad(employeeList, QTY_CLIENTE);
 						break;
 					case 2:
 						if(isEmployeesListEmpty(employeeList, QTY_CLIENTE) == 0 &&

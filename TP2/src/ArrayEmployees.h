@@ -9,7 +9,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define ERROR_MSG "Error, reingrese el dato"
+#define ERROR_MSG_L "Error, reingrese el dato"
 #define QTY_CLIENTE 1000
 #define NAME_LEN 51
 #define LASTNAME_LEN 51
@@ -52,7 +52,7 @@ int initEmployees(Employee* list, int len);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - return the empty id if Ok
  *
  */
-int findEmptyIndex(Employee* list, int len);
+int findEmptyIndexLocalidad(Employee* list, int len);
 
 
 /** \brief Asks the employee's data
@@ -163,7 +163,7 @@ int isEmployeesListEmpty(Employee *list, int len);
  * \return int 0 success, -1 error
  *
  */
-int hardcodearData(Employee* list, int len);
+int hardcodearData_localidad(Employee* list, int len);
 
 
 /** \brief creates a menu for "informes"
@@ -183,7 +183,7 @@ int informe_menu(Employee* list, int len);
  * \return int 0 success, -1 error
  *
  */
-int alta_menu(Employee* list, int len);
+int alta_menuLocalidad(Employee* list, int len);
 
 
 /** \brief creates a submenu for the first option of "informes"
