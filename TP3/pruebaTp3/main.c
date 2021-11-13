@@ -37,7 +37,7 @@ int main()
 
     do{
     	if(utn_getNumero(&option, "\nMenu: \n1. Cargar los datos de los empleados desde el archivo data.csv (modo texto) \n2. Cargar los datos de los empleados desde el archivo data.csv (modo binario) \n3. Alta de empleado \n4. Modificar datos de empleado \n5. Baja de empleado \n6. Listar empleados \n7. Ordenar empleados \n8. Guardar los datos de los empleados en el archivo data.csv (modo texto) \n9. Guardar los datos de los empleados en el archivo data.csv (modo binario) \n10. Salir\n", "Error, reingrese el dato\n", 1, 10, 5) == 0)
-		{
+	{
             switch(option)
             {
                 case 1:
@@ -66,11 +66,11 @@ int main()
                 	break;
                 case 3:
                 	if(ll_isEmpty(listaEmpleados) == 0)
-					{
+			{
                 		controller_addEmployee(listaEmpleados);
                 		option8 = 0;
                 		option9 = 0;
-					}
+			}
                 	else
                 	{
                 		printf(EMPTY_LIST_ERROR);
@@ -78,11 +78,11 @@ int main()
                 	break;
                 case 4:
                 	if(ll_isEmpty(listaEmpleados) == 0)
-					{
+			{
                 		controller_editEmployee(listaEmpleados);
                 		option8 = 0;
                 		option9 = 0;
-					}
+			}
                 	else
                 	{
                 		printf(EMPTY_LIST_ERROR);
@@ -90,11 +90,11 @@ int main()
                 	break;
                 case 5:
                 	if(ll_isEmpty(listaEmpleados) == 0)
-					{
+			{
                 		controller_removeEmployee(listaEmpleados);
                 		option8 = 0;
                 		option9 = 0;
-					}
+			}
                 	else
                 	{
                 		printf(EMPTY_LIST_ERROR);
@@ -155,7 +155,7 @@ int main()
                 	}
                 	break;
             }
-		}
+	}
     }while((continuar == 'n' || continuar == 'N') || option != 10);
 
     return 0;
