@@ -779,9 +779,10 @@ int validarNombre(char* cadena, int limite)
 
 	if(cadena != NULL && limite > 0)
 	{
-		retorno = 1;
+
 		for(int i = 0; i < limite && cadena[i] != '\0'; i++)
 		{
+			retorno = 1;
 			if ((cadena[i] != ' ') && ((cadena[i] < 'A' || cadena[i] > 'z') || (cadena[i] < 'a' && cadena[i] > 'Z')) )
 			{
 				retorno = 0;
