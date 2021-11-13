@@ -25,7 +25,7 @@
 
 int main()
 {
-	setbuf(stdout, NULL);
+    setbuf(stdout, NULL);
     int option = 0;
     char continuar;
     int option1 = 0;
