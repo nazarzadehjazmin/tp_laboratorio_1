@@ -7,12 +7,13 @@
 #define SAVE_DATA "Datos guardados exitosamente\n"
 #define EDIT_SUCCESS "Empleado editado exitosamente\n"
 #define EDIT_ERROR "El empleado no ha sido editado\n"
+#define SORT_MSG "\nRealizando el ordenamiento. Aguarde un instante...\n"
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [<0] ERROR, [0] EXITO
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee);
@@ -21,7 +22,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [<0] ERROR, [0] EXITO
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee);
@@ -30,7 +31,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee);
@@ -39,7 +40,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee);
@@ -48,7 +49,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee);
@@ -57,7 +58,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee);
@@ -66,7 +67,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee);
@@ -75,7 +76,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
@@ -84,7 +85,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
- * \return int
+ * \return int [-1] ERROR, [0] EXITO
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);

@@ -173,7 +173,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 						}
 					}
 				}while (option != 4);
-
+				output = 0;
 			}
 		}
 	}
@@ -257,18 +257,24 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 				switch(criteria)
 				{
 				case 1:
+					printf(SORT_MSG);
 					ll_sort(pArrayListEmployee, employee_compareById, order);
 					break;
 				case 2:
+					printf(SORT_MSG);
 					ll_sort(pArrayListEmployee, employee_compareByName, order);
 					break;
 				case 3:
+					printf(SORT_MSG);
 					ll_sort(pArrayListEmployee, employee_compareByWorkedHours, order);
 					break;
 				case 4:
+					printf(SORT_MSG);
 					ll_sort(pArrayListEmployee, employee_compareBySalary, order);
 					break;
 				}
+				controller_ListEmployee(pArrayListEmployee);
+				printf("\nOrdenamiento exitoso\n\n");
 			}
 			else
 			{
@@ -276,8 +282,8 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 			}
 		}
 		while(order != 2);
-		controller_ListEmployee(pArrayListEmployee);
-		printf("\nOrdenamiento exitoso\n");
+
+		output = 0;
 	}
 
     return output;

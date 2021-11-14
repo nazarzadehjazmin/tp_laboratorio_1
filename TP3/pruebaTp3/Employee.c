@@ -169,7 +169,7 @@ int isValidNombre(char* name)
 {
 	int output = 0;
 
-	if(name != NULL && utn_isAlfanumerico2(name) == 1)
+	if(name != NULL && validarNombre(name, NAME_LEN) == 1)
 	{
 		output = 1;
 	}
