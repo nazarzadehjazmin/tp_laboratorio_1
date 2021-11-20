@@ -280,18 +280,18 @@ int ll_remove(LinkedList* this, int index)
  */
 int ll_clear(LinkedList* this)
 {
-	//REVISAR
 	//vacia la ll pero luego puedo meter empleados de nuevo
 	int returnAux = -1;
 
-	    if(this != NULL)
-	    {
-			for(int i = 0; i == 0 || i < ll_len(this); i++) //elimina todos los nodos de la lista --> hace un ll_remove de todos los elementos de la lista
-			{
-				ll_remove(this, i);
-				returnAux = 0;
-			}
-	    }
+	if(this != NULL)
+	{
+		while(ll_isEmpty(this) == 0) //false
+			//elimina todos los nodos de la lista --> hace un ll_remove de todos los elementos de la lista
+		{
+			ll_remove(this, 0); //siempre es cero el indice cuando elimino porque se reacomodan los nodos de la ll
+			returnAux = 0;
+		}
+	}
 	    return returnAux;
 }
 
@@ -544,30 +544,36 @@ LinkedList* ll_clone(LinkedList* this)
  * \param pFunc (*pFunc) Puntero a la funcion criterio
  * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
-                                ( 0) Si ok
+                         (0) Si ok
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
+	//toca el orden de los elementos
     int returnAux = -1;
 	int disorderedState = 1;
 	int criteria;
 	void* pElement;
 	void* pElement2;
+	int len;
 
 	if (this != NULL && pFunc != NULL && (order == 0 || order == 1))
 	{
+		len = ll_len(this)-1;
 		while (disorderedState)
 		{
-			disorderedState = 0;
-			for (int i = 0; i < ll_len(this)- 1; i++)
+			disorderedState = 0; //false
+			for(int i = 0; i < len; i++)
 			{
 				pElement = ll_get(this, i); //obtiene un elemento en indice
 				pElement2 = ll_get(this, i+1); //obtiene un elemento en indice+1
-				criteria = pFunc(pElement,pElement2); //determina si se hace o no un swap
-				if ((order == 1 && criteria == 1) ||
-					(order == 0 && criteria == -1)) //-1 no hace swap?
+				criteria = pFunc(pElement,pElement2); //aca comparo los elementos
+				//esta funcion tendra --> strcmp --> 0 = e1=e2 | <0 = e1<e2 | >0 = e1>e2
+				if ((order == 0 && criteria < 0) ||
+				    (order == 1 && criteria > 0))
+					//asc --> order = 1, criteria = >0 --> pElement>pElement2
+					//desc --> order = 0, criteria = <0 --> pElement<pElement2
 				{
-					ll_set(this, i, pElement2); //modifica elem de la lista
+					ll_set(this, i, pElement2); //cambio de lugar
 					ll_set(this, i+1, pElement);
 					disorderedState = 1;
 				}
